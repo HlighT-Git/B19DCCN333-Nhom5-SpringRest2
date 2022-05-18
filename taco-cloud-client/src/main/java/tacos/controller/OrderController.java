@@ -28,8 +28,23 @@ public class OrderController {
         return "orderForm";
     }
     @PostMapping
-    public String processOrder(@RequestParam("name") String name) {
+    public String processOrder(@RequestParam("name") String name,
+                               @RequestParam("street") String street,
+                               @RequestParam("city") String city,
+                               @RequestParam("state") String state,
+                               @RequestParam("zip") String zip,
+                               @RequestParam("ccNumber") String ccNumber,
+                               @RequestParam("ccExpiration") String ccExpiration,
+                               @RequestParam("ccCVV") String ccCVV) {
         Order order = new Order();
+        order.setName(name);
+        order.setStreet(street);
+        order.setCity(city);
+        order.setState(state);
+        order.setZip(zip);
+        order.setCcNumber(ccNumber);
+        order.setCcExpiration(ccExpiration);
+        order.setCcCVV(ccCVV);
         rest.postForObject("http://localhost:8080/orders", order, Order.class);
         return "redirect:/orders/current";
     }
